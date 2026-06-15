@@ -369,3 +369,30 @@ nsclc (task-data repin), clustered_cyclic (vendor quits), the 8 network/API task
 (heavy build), interproscan (15GB), scene2/scene3 (bundle source), hg002/bpmn container images (prebake/egress).
 Next concrete actions: build qe-bgw (BGW unblocked), add rtg-tools/sgfmill/python-3.12 remaps, fix matrad-rtplan,
 deepen cellprofiler/bwa-mem2 verifies — each with in-container functional tests.
+
+---
+
+# WAVE 6 — per-package clean verification sweep (this session)
+
+Goal (per user): ensure EACH package, run individually on a fresh lean base, installs
+reliably AND the software is actually usable (functional verify, not presence-only).
+
+## Result: 55/55 packages PASS (real install + functional verify, fresh container each)
+- Verify-quality pass first: upgraded all presence-only `test -x` verifies to functional
+  checks (ambertools/ensembl-vep/qe-bgw/r-libs-ltmle/python3.10-dev).
+- Tiers run on `agentslastexam/ale-kasm-noagents-nodata:latest` (fresh container per pkg;
+  R-libs share their R prereq; openroad via privileged DinD): T1 fast 20/20, T2 medium 11/11,
+  T3 R/conda 13/13, openroad-orfs-image (DinD 4.6GB pull) PASS.
+
+## Real breakages caught by functional verify (all FIXED) — presence-only had hidden them:
+- bwa-mem2: dispatcher couldn't find arch variants on avx2-class VMs → symlink all + pick runnable variant.
+- cellprofiler: no discoverable JVM → openjdk in env + java on PATH + libjvm via ldconfig.
+- ensembl-vep: `vep` ran under system perl (no DBI) → wrapper puts conda env perl first on PATH.
+- fds-smv: `fds` missing Intel libimf.so → register bin/INTEL/lib via ldconfig.
+- (gatk-picard: not a bug — needs python+jdk co-prereqs, as its card declares.)
+
+## Housekeeping
+- Added `"os": "linux"` to every package meta.json.
+- Removed orphans: neurodesk-brain-science (→apptainer-1.3.0), r-base- (dup of r-base-4.3.2),
+  r-libs-pseudotime (→bioc-tradeseq-conda).
+- Package count: 55.
