@@ -1,1 +1,1 @@
-{"description":"Alias /usr/bin/python -> python3.12","provides":["/usr/bin/python"],"verify":"/usr/bin/python --version"}
+{"description": "Alias /usr/bin/python -> python3.12", "os": "linux", "provides": ["/usr/bin/python"], "verify": "/usr/bin/python --version"}

@@ -1,1 +1,1 @@
-{"description":"micromamba (conda-forge env manager) at ~/.local/bin","verify":"/home/kasm-user/.local/bin/micromamba --version"}
+{"description": "micromamba (conda-forge env manager) at ~/.local/bin", "os": "linux", "verify": "/home/kasm-user/.local/bin/micromamba --version"}
