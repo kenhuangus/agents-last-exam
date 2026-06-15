@@ -1,1 +1,1 @@
-{"description": "Alias /usr/bin/python -> python3.10", "os": "linux", "provides": ["/usr/bin/python"], "verify": "/usr/bin/python --version"}
+{"description": "Alias /usr/bin/python -> python3.10", "os": "linux", "provides": ["/usr/bin/python"], "verify": "/usr/bin/python --version 2>&1 | grep -q 'Python 3.10'"}
