@@ -1,1 +1,0 @@
-{"description":"Apptainer + Neurodesk brain_science GUI bundle (multi-GB, GUI). Set BRAIN_SCIENCE_BUNDLE to provision.","verify":"command -v apptainer"}

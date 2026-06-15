@@ -1,1 +1,1 @@
-{"description":"AmberTools 23 conda-forge env at /opt/ambertools-23 (AMBERHOME)","verify":"test -x /opt/ambertools-23/bin/tleap"}
+{"description": "AmberTools 23 conda-forge env at /opt/ambertools-23 (AMBERHOME)", "verify": "/opt/ambertools-23/bin/cpptraj --version 2>&1 | grep -qi cpptraj"}

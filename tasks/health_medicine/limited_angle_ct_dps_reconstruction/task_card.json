@@ -87,6 +87,7 @@
     }
   },
   "requiredSystemPackages": [
-    "python-default-3.10"
+    "python-default-3.10",
+    "leap-cpu-torch"
   ]
 }
