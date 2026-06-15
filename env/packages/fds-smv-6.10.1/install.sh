@@ -11,6 +11,10 @@ if [ ! -x "$P/bin/fds" ]; then
   test -f "$TGZ" || { echo "[pkg fds-smv-6.10.1] FATAL: installer produced no payload" >&2; exit 1; }
   mkdir -p "$P"; tar xzf "$TGZ" -C "$P"; cd /; rm -rf "$T"
 fi
-VER="$(LD_LIBRARY_PATH=$P/bin/INTEL/lib "$P/bin/fds" 2>&1 | grep -iE 'version|6\.10\.1' | head -1 || true)"
+# fds is built with Intel compilers and needs its bundled Intel runtime libs (libimf.so
+# etc.) on the loader path; register them via ldconfig so `fds` runs without callers
+# having to set LD_LIBRARY_PATH.
+if [ -d "$P/bin/INTEL/lib" ]; then echo "$P/bin/INTEL/lib" > /etc/ld.so.conf.d/fds-smv.conf; ldconfig; fi
+VER="$("$P/bin/fds" 2>&1 | grep -iE 'version|6\.10\.1' | head -1 || true)"
 echo "$VER" | grep -q "6.10.1" || { echo "[pkg fds-smv-6.10.1] FATAL: fds not 6.10.1 ($VER)" >&2; exit 1; }
 echo "[pkg fds-smv-6.10.1] OK ($VER)"
